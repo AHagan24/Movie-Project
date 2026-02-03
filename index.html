@@ -11,6 +11,8 @@
  
 <body>
 
+  <!-- nav -->
+
      <nav class="navbar">
          <div class="nav__left">
             <a href="#" class="brand">
@@ -25,15 +27,15 @@
             </button>
          </div>
         <form role="search" class="nav__search">
-            <div class="search__wrap">
-                <button class="search__filter" type="button">
-            <select id="sortSelect" class="sort__select">
-              <option value="AZ">A-Z</option>
-              <option value="ZA">Z-A</option>
-              <option value="NEW_OLD">New-Old</option>
+          <div class="search__wrap">
+              <div class="search__filter">
+              <select id="sortSelect" class="sort__select">
+                <option value="AZ">A-Z</option>
+                <option value="ZA">Z-A</option>
+                <option value="NEW_OLD">New-Old</option>
               <option value="OLD_NEW">Old-New</option>
             </select>
-                </button>
+            </div>
                 <input 
                 class="search__input"
                 type="text"
@@ -41,7 +43,7 @@
                 aria-label="Search"
                 />
 
-                <button class="search btn" type="submit" aria-label="search">
+                <button class="search__btn" type="submit" aria-label="search">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
@@ -55,6 +57,8 @@
         </div>
         </nav>
         
+  <!-- hero -->
+
        <section class="hero">
   <div class="hero__main" id="heroMain">
     <img class="hero__backdrop" id="heroBackdrop" src="./assets/mario-backdrops.jpg" alt="Backdrop" />
@@ -90,13 +94,25 @@
   </div>
   </section>
 
-<section class="results" id="resultsSection">
+<section class="results">
   <div class="results__header">
     <h2 class="results__title" id="resultsTitle">Search results</h2>
+    <div id="resultsSection"></div>
   </div>
   <div class="movies" id="movies"></div>
 </section>
 </body>
 
-<footer class="footer"></footer>
+<footer class="footer">
+  <div class="footer__container">
+    <div class="footer__row">
+      <div class="footer__links">
+        <a href="#" class="footer__link">Favorites</a>
+        <a href="#" class="footer__link">Watchlist</a>
+        <a href="#" class="footer__link">FAQS</a>
+      </div>
+      <p class="footer__copyright">Created by © Addison 2026</p>
+    </div>
+  </div>
+</footer>
 </html>

@@ -1,80 +1,3 @@
-async function getMovie(query) {
-  try {
-    const url = `https://www.omdbapi.com/?apikey=${apikey}&s=${encodeURIComponent(
-      query,
-    )}&type=movie`;
-
-    const response = await fetch(url);
-    const data = await response.json();
-
-    if (data.Response === "False") {
-      resultsSection.innerHTML = `<p style="color:white;">${data.Error}</p>`;
-      return;
-    }
-
-
-    let movies = (data.Search || []).filter(
-      (m) => m.Poster && m.Poster !== "N/A",
-    );
-
-    const sortMode = sortSelect.value;
-    if (sortMode === "AZ") {
-      movies.sort((a, b) => a.Title.localeCompare(b.Title));
-    } else if (sortMode === "ZA") {
-      movies.sort((a, b) => b.Title.localeCompare(a.Title));
-    } else if (sortMode === "NEW_OLD") {
-      movies.sort((a, b) => Number(b.Year) - Number(a.Year));
-    } else if (sortMode === "OLD_NEW") {
-      movies.sort((a, b) => Number(a.Year) - Number(b.Year));
-    }
-  
-    function runSearch() {
-      const q = searchInput.value.trim();
-      if (!q) {
-        resultsSection.innerHTML = "";
-        return;
-      }
-      getMovie(q);
-    }
-
-    
-    searchInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        runSearch();
-      }
-    });
-
-   
-    let searchTimer;
-    searchInput.addEventListener("input", () => {
-      clearTimeout(searchTimer);
-      searchTimer = setTimeout(runSearch, 400);
-    });
-
-  
-    sortSelect.addEventListener("change", runSearch);
-
-
-    resultsSection.innerHTML = movies
-      .map(
-        (m) => `
-        <a class="card" href="#" data-imdbid="${m.imdbID}">
-          <img src="${m.Poster}" alt="${m.Title} poster" />
-          <div class="card__overlay">
-            <p class="card__title">${m.Title}</p>
-            <p class="card__sub">${m.Year}</p>
-          </div>
-        </a>
-      `,
-      )
-      .join("");
-  } catch (error) {
-    console.error("Error fetching movie data:", error);
-    resultsSection.innerHTML = `<p style="color:white;">Something went wrong.</p>`;
-  }
-}
-
 const heroBackdrop = document.getElementById("heroBackdrop");
 const heroPoster = document.getElementById("heroPoster");
 const heroTitle = document.getElementById("heroTitle");
@@ -214,13 +137,91 @@ const rightBtn = document.querySelector(".rail__btn--right");
 
 function scrollByCard(direction) {
   const card = track.querySelector(".card");
-  const amount = (card?.offsetWidth || 240) + 16; // width + gap
+  const amount = (card?.offsetWidth || 240) + 16;
   track.scrollBy({ left: direction * amount * 1.5, behavior: "smooth" });
 }
 
 leftBtn.addEventListener("click", () => scrollByCard(-1));
 rightBtn.addEventListener("click", () => scrollByCard(1));
 
-const resultsSection = document.getElementById("resultsSection");
-const searchInput = document.querySelector(".search__input");
-const sortSelect = document.getElementById("sortSelect");
+document.addEventListener("DOMContentLoaded", () => {
+  const searchForm = document.querySelector(".nav__search");
+  const searchInput = document.querySelector(".search__input");
+  const sortSelect = document.getElementById("sortSelect");
+  const resultsSection = document.getElementById("resultsSection");
+
+  console.log("HOOKS:", {
+    searchForm,
+    searchInput,
+    sortSelect,
+    resultsSection,
+  });
+
+  if (!searchForm || !searchInput || !resultsSection) {
+    console.error(
+      "One or more elements are null. Fix HTML ids/classes or load script with defer.",
+    );
+    return;
+  }
+
+  async function searchMovies(query) {
+    const q = query.trim();
+    if (!q) {
+      resultsSection.innerHTML = "";
+      return;
+    }
+
+    resultsSection.innerHTML = `<p style="color:white;">Searching…</p>`;
+
+    try {
+      const url = `https://www.omdbapi.com/?apikey=${apikey}&s=${encodeURIComponent(q)}&type=movie`;
+      const res = await fetch(url);
+      const data = await res.json();
+
+      console.log("OMDb:", data);
+
+      if (data.Response === "False") {
+        resultsSection.innerHTML = `<p style="color:white;">${data.Error}</p>`;
+        return;
+      }
+
+      let movies = (data.Search || []).filter(
+        (m) => m.Poster && m.Poster !== "N/A",
+      );
+
+      const mode = sortSelect.value;
+      if (mode === "AZ") movies.sort((a, b) => a.Title.localeCompare(b.Title));
+      if (mode === "ZA") movies.sort((a, b) => b.Title.localeCompare(a.Title));
+      if (mode === "NEW_OLD")
+        movies.sort((a, b) => Number(b.Year) - Number(a.Year));
+      if (mode === "OLD_NEW")
+        movies.sort((a, b) => Number(a.Year) - Number(b.Year));
+
+      resultsSection.innerHTML = movies
+        .map(
+          (m) => `
+        <a class="card" href="#" data-imdbid="${m.imdbID}">
+          <img src="${m.Poster}" alt="${m.Title} poster" />
+          <div class="card__overlay">
+            <p class="card__title">${m.Title}</p>
+            <p class="card__sub">${m.Year}</p>
+          </div>
+        </a>
+      `,
+        )
+        .join("");
+    } catch (err) {
+      console.error(err);
+      resultsSection.innerHTML = `<p style="color:white;">Search failed. Check console.</p>`;
+    }
+  }
+
+  searchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    searchMovies(searchInput.value);
+  });
+
+  sortSelect.addEventListener("change", () => {
+    searchMovies(searchInput.value);
+  });
+});

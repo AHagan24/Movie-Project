@@ -3,29 +3,100 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CineScope</title>
+    <title>Movies</title>
     <script src="index.js" defer></script>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://kit.fontawesome.com/1d19f3f344.js" crossorigin="anonymous"></script>
   </head>
  
- <section id="landing-page">
-    <nav>
-        <figure>
-            <img src="assets/CineScopeLogo.png" class="logo" />
-        </figure>
-        <ul class="nav__link--list">
-            <li class="nav__link">
-                <a href="#">Home</a>
-            </li>
-            <li class="nav__link">
-                <a href="#">Movies</a>
-            </li>
-            <li class="nav__link">
-                <a href="#">Profile</a>
-            </li>
-        </ul>
-    </nav>
-    <header class="header">
+<body>
 
-    </header>
- </section>
+     <nav class="navbar">
+         <div class="nav__left">
+            <a href="#" class="brand">
+                <span class="brand__badge">Movies</span>
+            </a>
+
+            <button class="menu__btn" type="button">
+                <span class="menu__icon">
+                    <i class="fa-solid fa-bars"></i>
+                <span class="Menu"></span>
+                </span>
+            </button>
+         </div>
+        <form role="search" class="nav__search">
+            <div class="search__wrap">
+                <button class="search__filter" type="button">
+            <select id="sortSelect" class="sort__select">
+              <option value="AZ">A-Z</option>
+              <option value="ZA">Z-A</option>
+              <option value="NEW_OLD">New-Old</option>
+              <option value="OLD_NEW">Old-New</option>
+            </select>
+                </button>
+                <input 
+                class="search__input"
+                type="text"
+                placeholder="Search Movies"
+                aria-label="Search"
+                />
+
+                <button class="search btn" type="submit" aria-label="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </form>
+        <div class="nav-right">
+            <a class="nav-link" href="#">Favorites</a>
+            <span class="divider"></span>
+            <a class="nav-link" href="#">Watchlist</a>
+            <a class="nav-link" href="#">Sign in</a>
+            </button>
+        </div>
+        </nav>
+        
+       <section class="hero">
+  <div class="hero__main" id="heroMain">
+    <img class="hero__backdrop" id="heroBackdrop" src="./assets/mario-backdrops.jpg" alt="Backdrop" />
+    <div class="heo__overlay"></div>
+    <button class="hero__play" id="heroPlay" aria-label="Play trailer">
+    </button>
+    <div class="hero__posterCard">
+      <img id="heroPoster" src="./assets/super-mario-galaxy.jpg" alt="Poster" />
+    </div>
+    <div class="hero__info">
+      <h1 id="heroTitle"></h1>
+      <p id="heroSubtitle"></p>
+    </div>
+    <button class="hero__arrow hero__arrow--left" id="heroPrev" aria-label="Previous">‹</button>
+    <button class="hero__arrow hero__arrow--right" id="heroNext" aria-label="Next">›</button>
+  </div>
+  <aside class="hero__side">
+    <h3 class="side__title">Up next</h3>
+    <div class="side__list" id="upNextList">
+    </div>
+    <a class="side__link" href="#">Browse trailers ›</a>
+  </aside>
+</section>
+
+  <!-- featured -->
+  <section class="rail">
+  <h2 class="rail__title">Featured today</h2>
+  <div class="rail__wrap">
+      <button class="rail__btn rail__btn--left" aria-label="Scroll left">‹</button>
+      <div class="rail__track" id="featuredTrack">
+      </div>
+      <button class="rail__btn rail__btn--right" aria-label="Scroll right">›</button>
+  </div>
+  </section>
+
+<section class="results" id="resultsSection">
+  <div class="results__header">
+    <h2 class="results__title" id="resultsTitle">Search results</h2>
+  </div>
+  <div class="movies" id="movies"></div>
+</section>
+</body>
+
+<footer class="footer"></footer>
+</html>

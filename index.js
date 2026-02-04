@@ -32,8 +32,8 @@ const items = [
   {
     title: "The Lord of the Rings: The Return of the King (2003)",
     subtitle: "The eye of the enemy is moving.",
-    backdrop: "./assets/LOTR-return-of-the-king-backdrop.jpg",
-    poster: "./assets/LOTR-Return-of-the-king.jpg",
+    backdrop: "./assets/LOTR-Return-of-the-King-backdrop.jpg",
+    poster: "./assets/LOTR-Return-of-the-King.jpg",
   },
   {
     title: "The Dark Knight (2008)",

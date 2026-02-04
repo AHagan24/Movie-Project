@@ -1,3 +1,21 @@
+function openMenu() {
+  const menu = document.getElementById("mobileMenu");
+  menu.classList.toggle("open");
+
+  if (menu.classList.contains("open")) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
+  }
+}
+
+document.querySelectorAll("#mobileMenu a").forEach((link) => {
+  link.addEventListener("click", () => {
+    document.getElementById("mobileMenu").classList.remove("open");
+    document.body.style.overflow = "";
+  });
+});
+
 const heroBackdrop = document.getElementById("heroBackdrop");
 const heroPoster = document.getElementById("heroPoster");
 const heroTitle = document.getElementById("heroTitle");

@@ -6,113 +6,151 @@
     <title>Movies</title>
     <script src="index.js" defer></script>
     <link rel="stylesheet" href="style.css" />
-    <script src="https://kit.fontawesome.com/1d19f3f344.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/1d19f3f344.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
- 
-<body>
+  <body>
+    <!-- nav -->
 
-  <!-- nav -->
-
-     <nav class="navbar">
-         <div class="nav__left">
-            <a href="#" class="brand">
-                <span class="brand__badge">Movies</span>
-            </a>
-
-            <button class="menu__btn" type="button">
-                <span class="menu__icon">
-                    <i class="fa-solid fa-bars"></i>
-                <span class="Menu"></span>
-                </span>
-            </button>
-         </div>
-        <form role="search" class="nav__search">
-          <div class="search__wrap">
-              <div class="search__filter">
-              <select id="sortSelect" class="sort__select">
-                <option value="AZ">A-Z</option>
-                <option value="ZA">Z-A</option>
-                <option value="NEW_OLD">New-Old</option>
+    <nav class="navbar">
+      <div class="nav__left">
+        <a href="#" class="brand">
+          <span class="brand__badge">Movies</span>
+        </a>
+        <button class="menu__btn" type="button" onclick="openMenu()">
+          <div class="menu__icon">
+            <i class="fa-solid fa-bars"></i>
+          </div>
+        </button>
+      </div>
+      <form role="search" class="nav__search">
+        <div class="search__wrap">
+          <div class="search__filter">
+            <select id="sortSelect" class="sort__select">
+              <option value="AZ">A-Z</option>
+              <option value="ZA">Z-A</option>
+              <option value="NEW_OLD">New-Old</option>
               <option value="OLD_NEW">Old-New</option>
             </select>
-            </div>
-                <input 
-                class="search__input"
-                type="text"
-                placeholder="Search Movies"
-                aria-label="Search"
-                />
-
-                <button class="search__btn" type="submit" aria-label="search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </div>
-        </form>
-        <div class="nav-right">
-            <a class="nav-link" href="#">Favorites</a>
-            <span class="divider"></span>
-            <a class="nav-link" href="#">Watchlist</a>
-            <a class="nav-link" href="#">Sign in</a>
-            </button>
+          </div>
+          <input
+            class="search__input"
+            type="text"
+            placeholder="Search Movies"
+            aria-label="Search"
+          />
+          <button class="search__btn" type="submit" aria-label="search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
         </div>
-        </nav>
-        
-  <!-- hero -->
-
-       <section class="hero">
-  <div class="hero__main" id="heroMain">
-    <img class="hero__backdrop" id="heroBackdrop" src="./assets/mario-backdrops.jpg" alt="Backdrop" />
-    <div class="heo__overlay"></div>
-    <button class="hero__play" id="heroPlay" aria-label="Play trailer">
-    </button>
-    <div class="hero__posterCard">
-      <img id="heroPoster" src="./assets/super-mario-galaxy.jpg" alt="Poster" />
-    </div>
-    <div class="hero__info">
-      <h1 id="heroTitle"></h1>
-      <p id="heroSubtitle"></p>
-    </div>
-    <button class="hero__arrow hero__arrow--left" id="heroPrev" aria-label="Previous">‹</button>
-    <button class="hero__arrow hero__arrow--right" id="heroNext" aria-label="Next">›</button>
-  </div>
-  <aside class="hero__side">
-    <h3 class="side__title">Up next</h3>
-    <div class="side__list" id="upNextList">
-    </div>
-    <a class="side__link" href="#">Browse trailers ›</a>
-  </aside>
-</section>
-
-  <!-- featured -->
-  <section class="rail">
-  <h2 class="rail__title">Featured today</h2>
-  <div class="rail__wrap">
-      <button class="rail__btn rail__btn--left" aria-label="Scroll left">‹</button>
-      <div class="rail__track" id="featuredTrack">
+      </form>
+      <div class="nav-right">
+        <a class="nav-link" href="#">Favorites</a>
+        <span class="divider"></span>
+        <a class="nav-link" href="#">Watchlist</a>
+        <a class="nav-link" href="#">Sign in</a>
       </div>
-      <button class="rail__btn rail__btn--right" aria-label="Scroll right">›</button>
-  </div>
-  </section>
-
-<section class="results">
-  <div class="results__header">
-    <h2 class="results__title" id="resultsTitle">Search results</h2>
-    <div id="resultsSection"></div>
-  </div>
-  <div class="movies" id="movies"></div>
-</section>
-</body>
-
-<footer class="footer">
-  <div class="footer__container">
-    <div class="footer__row">
-      <div class="footer__links">
-        <a href="#" class="footer__link">Favorites</a>
-        <a href="#" class="footer__link">Watchlist</a>
-        <a href="#" class="footer__link">FAQS</a>
+      <div class="mobile-overlay" id="mobileMenu">
+        <button
+          class="mobile-overlay__close"
+          type="button"
+          onclick="openMenu()"
+          aria-label="Close menu"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="mobile-overlay__content">
+          <a href="#">Favorites</a>
+          <a href="#">Watchlist</a>
+          <a href="#">Sign in</a>
+        </div>
       </div>
-      <p class="footer__copyright">Created by © Addison 2026</p>
+    </nav>
+
+    <!-- hero -->
+
+    <section class="hero">
+      <div class="hero__main" id="heroMain">
+        <img
+          class="hero__backdrop"
+          id="heroBackdrop"
+          src="./assets/mario-backdrops.jpg"
+          alt="Backdrop"
+        />
+        <div class="heo__overlay"></div>
+        <button
+          class="hero__play"
+          id="heroPlay"
+          aria-label="Play trailer"
+        ></button>
+        <div class="hero__posterCard">
+          <img
+            id="heroPoster"
+            src="./assets/super-mario-galaxy.jpg"
+            alt="Poster"
+          />
+        </div>
+        <div class="hero__info">
+          <h1 id="heroTitle"></h1>
+          <p id="heroSubtitle"></p>
+        </div>
+        <button
+          class="hero__arrow hero__arrow--left"
+          id="heroPrev"
+          aria-label="Previous"
+        >
+          ‹
+        </button>
+        <button
+          class="hero__arrow hero__arrow--right"
+          id="heroNext"
+          aria-label="Next"
+        >
+          ›
+        </button>
+      </div>
+      <aside class="hero__side">
+        <h3 class="side__title">Up next</h3>
+        <div class="side__list" id="upNextList"></div>
+        <a class="side__link" href="#">Browse trailers ›</a>
+      </aside>
+    </section>
+
+    <!-- featured -->
+    <section class="rail">
+      <h2 class="rail__title">Featured today</h2>
+      <div class="rail__wrap">
+        <button class="rail__btn rail__btn--left" aria-label="Scroll left">
+          ‹
+        </button>
+        <div class="rail__track" id="featuredTrack"></div>
+        <button class="rail__btn rail__btn--right" aria-label="Scroll right">
+          ›
+        </button>
+      </div>
+    </section>
+
+    <section class="results">
+      <div class="results__header">
+        <h2 class="results__title" id="resultsTitle">Search results</h2>
+        <div id="resultsSection"></div>
+      </div>
+      <div class="movies" id="movies"></div>
+    </section>
+  </body>
+
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__row">
+        <div class="footer__links">
+          <a href="#" class="footer__link">Favorites</a>
+          <a href="#" class="footer__link">Watchlist</a>
+          <a href="#" class="footer__link">FAQS</a>
+        </div>
+        <p class="footer__copyright">Created by © Addison 2026</p>
+      </div>
     </div>
-  </div>
-</footer>
+  </footer>
 </html>
